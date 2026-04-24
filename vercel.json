@@ -1,3 +1,14 @@
 {
-  "installCommand": "true"
+  "framework": null,
+  "functions": {
+    "api/*.py": {
+      "runtime": "python3.9"
+    }
+  },
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/hello_frontend.html"
+    }
+  ]
 }
