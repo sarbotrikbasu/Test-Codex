@@ -2,7 +2,7 @@
   "framework": null,
   "functions": {
     "api/*.py": {
-      "runtime": "python"
+      "runtime": "python3.9"
     }
   },
   "rewrites": [
