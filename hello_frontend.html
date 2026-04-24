@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hello World Frontend</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 2rem;
+      background: #f3f4f6;
+      color: #111827;
+    }
+    button {
+      padding: 0.75rem 1.25rem;
+      font-size: 1rem;
+      border: none;
+      border-radius: 0.5rem;
+      background: #2563eb;
+      color: white;
+      cursor: pointer;
+    }
+    button:disabled {
+      background: #93c5fd;
+      cursor: not-allowed;
+    }
+    .output {
+      margin-top: 1.25rem;
+      padding: 1rem;
+      background: white;
+      border-radius: 0.5rem;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+      min-height: 3rem;
+      white-space: pre-wrap;
+    }
+  </style>
+</head>
+<body>
+  <h1>Hello World Frontend</h1>
+  <p>Click the button to run the backend script and display its output.</p>
+  <button id="runButton">Run Hello Script</button>
+  <div class="output" id="output">Output will appear here.</div>
+
+  <script>
+    const button = document.getElementById('runButton');
+    const output = document.getElementById('output');
+
+    button.addEventListener('click', async () => {
+      button.disabled = true;
+      output.textContent = 'Running script...';
+
+      try {
+        const response = await fetch('/run', { method: 'POST' });
+        const data = await response.text();
+
+        if (!response.ok) {
+          output.textContent = `Error: ${data}`;
+        } else {
+          output.textContent = data;
+        }
+      } catch (error) {
+        output.textContent = 'Unable to contact backend server. Make sure hello_server.py is running.';
+      } finally {
+        button.disabled = false;
+      }
+    });
+  </script>
+</body>
+</html>
